@@ -1,0 +1,30 @@
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-8">წიგნების დამატება</span>
+    <form [formGroup]="formGroup">
+        <div class="flex items-center gap-4 mb-4">
+            <label for="name" class="font-semibold w-24">დასახელება</label>
+            <input pInputText id="name" class="flex-auto" autocomplete="off" formControlName="name" />
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="price" class="font-semibold w-24">ფასი</label>
+            <input pInputText id="price" class="flex-auto" autocomplete="off" formControlName="price"/>
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="author" class="font-semibold w-24">ავტორი</label>
+            <input pInputText id="author" class="flex-auto" autocomplete="off" formControlName="author"/>
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="quantity" class="font-semibold w-24">რაოდენობა</label>
+            <div>
+                <p-button label="-" (onClick)="decrease()" />
+                <input pInputText id="quantity" class="flex-auto" autocomplete="off" formControlName="quantity"/>
+                <p-button label="+" (onClick)="increase()" />
+            </div>
+
+        </div>
+        <div class="flex justify-star gap-2">
+            <p-button label="Save" (click)="save()" [disabled]="formGroup.invalid"  />
+        </div>
+    </form>
+   
+</p-dialog>

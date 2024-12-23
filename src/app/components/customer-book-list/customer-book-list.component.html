@@ -1,0 +1,28 @@
+
+<div class="book-list">
+    @for (book of books; track book.id) {
+        <div class="mb-4 p-8">
+            <p-card header="">
+                <img src="../../../assets/images/image.png"/>
+                <div>      
+                    <div>დასახელება :{{book.name}}</div>
+                    <div>ავტორი:{{book.author}}</div>
+                    <div>რაოდენობა:{{book.quantity}}</div>
+                    <div>ფასი:{{book.price}}</div>
+                    <div>
+                        <p-button label="-" (click)="decrease()" />
+                        <input
+                          pInputText
+                          id="quantity"
+                          class="flex-auto"
+                          autocomplete="off"
+                          [(ngModel)]="bookCount"
+                          readonly
+                        />
+                        <p-button label="+" (click)="increase(book)" />
+                    </div>
+                </div>
+            </p-card>
+        </div>
+    }
+</div>

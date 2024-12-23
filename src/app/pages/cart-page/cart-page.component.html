@@ -1,0 +1,52 @@
+<p-table [value]="orders" >
+    <ng-template #header>
+        <tr>
+            <th>დასახელება</th>
+            <th>რაოდენობა</th>
+            <th>ავტორი</th>
+            <th>ფასი</th>
+        </tr>
+        <tr>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-order>
+        <tr >
+            <td>{{ order.name }}</td>
+            <td>{{ order.quantity }}</td>
+            <td>{{ order.author }}</td>
+            <td>{{ order.price }}</td>
+        </tr>
+    </ng-template>
+</p-table>

@@ -1,0 +1,87 @@
+<p-table [value]="books">
+    <ng-template #header>
+        <tr>
+            <th pSortableColumn="name" style="width:25%">
+                დასახელება <p-sortIcon field="name" />
+            </th>
+            <th pSortableColumn="quantity" style="width:25%">
+                რაოდენობა <p-sortIcon field="quantity" />
+            </th>
+            <th pSortableColumn="author" style="width:25%">
+                ავტორი <p-sortIcon field="author" />
+            </th>
+            <th pSortableColumn="price" style="width:25%">
+                ფასი <p-sortIcon field="price" />
+            </th>
+        </tr>
+        <tr>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="name"
+                    placeholder="Search by name"
+                    ariaLabel="Filter Name"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="quantity"
+                    placeholder="Search by quantity"
+                    ariaLabel="Filter Quantity"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="author"
+                    placeholder="Search by author"
+                    ariaLabel="Filter Author"
+                ></p-columnFilter>
+            </th>
+            <th>
+                <p-columnFilter
+                    type="text"
+                    field="price"
+                    placeholder="Search by price"
+                    ariaLabel="Filter Price"
+                ></p-columnFilter>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template #body let-book>
+        <tr (click)="showDialog(book)">
+            <td>{{ book.name }}</td>
+            <td>{{ book.quantity }}</td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.price }}</td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Edit Profile" [modal]="true" [(visible)]="visible" [style]="{ width: '25rem' }">
+    <span class="p-text-secondary block mb-8">წიგნის რედაქტირება</span>
+    <form [formGroup]="formControl">
+        <div class="flex items-center gap-4 mb-4">
+            <label for="name" class="font-semibold w-24">დასახელება</label>
+            <input pInputText id="name" class="flex-auto" autocomplete="off" formControlName="name" />
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="price" class="font-semibold w-24">ფასი</label>
+            <input pInputText id="price" class="flex-auto" autocomplete="off" formControlName="price"/>
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="author" class="font-semibold w-24">ავტორი</label>
+            <input pInputText id="author" class="flex-auto" autocomplete="off" formControlName="author"/>
+        </div>
+        <div class="flex items-center gap-4 mb-8">
+            <label for="quantity" class="font-semibold w-24">რაოდენობა</label>
+            <div>
+                <input pInputText id="quantity" class="flex-auto" [disabled]="true" />   
+            </div>
+        </div>
+        <div class="flex justify-star gap-2">
+            <p-button label="Save" (click)="updateBook()" [disabled]="formControl.invalid" />
+        </div>
+    </form>
+</p-dialog>

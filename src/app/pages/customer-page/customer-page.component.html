@@ -1,0 +1,12 @@
+<div class="card flex justify-center">
+    <label for="customerName">შეიყვანეთ თქვენი სახელი და გვარი</label>
+    <input type="text" id="customerName" pInputText [(ngModel)]="customerName" />
+</div>
+
+<div class="card flex justify-center">
+    <p-button label="ჩემი კალათა / შეკვეთები ( 3 ?)" />
+</div>
+
+
+<app-customer-book-list [curtomerName] = "customerName"></app-customer-book-list>
+

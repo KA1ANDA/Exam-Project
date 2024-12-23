@@ -1,0 +1,12 @@
+<app-book-list></app-book-list>
+
+<div class="card flex justify-center">
+    <p-button (click)="showDialog()" label="+ წიგნის დამატება" />
+    <app-dialog-pop-up
+    [visible]="visible"
+    [formGroup]="formControl"
+    (onSave)="saveBook()"
+    (onIncrease)="increaseQuantity()"
+    (onDecrease)="decreaseQuantity()">
+    ></app-dialog-pop-up>
+</div>
