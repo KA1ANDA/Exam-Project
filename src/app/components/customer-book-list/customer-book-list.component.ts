@@ -1,9 +1,10 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, input, Input, OnInit, Output } from '@angular/core';
 import { BooksService } from '../../services/books.service';
 import { Book } from '../../models/book';
 import { OrdersService } from '../../services/orders.service';
-import { OrderDetails } from '../../models/orderDedails';
-import { CartOrder } from '../../models/cartOrder';
+import { CartItem } from '../../models/cartItem';
+
+
 
 @Component({
   selector: 'app-customer-book-list',
@@ -13,10 +14,9 @@ import { CartOrder } from '../../models/cartOrder';
   styleUrl: './customer-book-list.component.css'
 })
 export class CustomerBookListComponent implements OnInit {
+  @Input() cartOrders: CartItem[] = []; 
   books: Book[] = [];
-  bookCount: number = 0;
-  selectedBook: Book | null = null; 
-  @Input() curtomerName:string = ''
+
 
   constructor(
     public bookService: BooksService,
@@ -35,42 +35,16 @@ export class CustomerBookListComponent implements OnInit {
   }
 
   increase(book: Book): void {
-    this.bookCount++;  
-    this.selectedBook = book;  
-  
-    if (this.selectedBook) {
-      let totalPrice: number | null = null; 
-  
-      if (this.selectedBook.price) {
-        totalPrice = this.selectedBook.price * this.bookCount;  
-      }
-  
-      const order: CartOrder = {
-        customerName:this.curtomerName,
-        bookId: this.selectedBook.id,  
-        quantity: this.bookCount,
-        totalPrice: totalPrice  
-      };
-  
-      this.addToCart(order);  
-    }
+    
   }
   
 
   decrease(): void {
-    if (this.bookCount > 0) {
-      this.bookCount--; 
-    }
+    
   }
 
-  addToCart(order: CartOrder): void {
-    this.ordersService.addToCart(order).subscribe({
-      next: (res) => {
-        console.log('Book added to order:', res);
-      },
-      error: (error) => {
-        console.error('Error adding book to order:', error);
-      }
-    });
+  addOrder(order: CartItem) {
+    this.cartOrders.push(order);
+    console.log(this.cartOrders , 'esaaa state')
   }
 }

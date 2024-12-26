@@ -1,12 +1,20 @@
-<div class="card flex justify-center">
-    <label for="customerName">შეიყვანეთ თქვენი სახელი და გვარი</label>
-    <input type="text" id="customerName" pInputText [(ngModel)]="customerName" />
+<div class="wrap">
+    <div class="card flex justify-center">
+        <label for="customerName">შეიყვანეთ თქვენი სახელი და გვარი</label>
+        <input type="text" id="customerName" pInputText  [(ngModel)]="customerName" (ngModelChange)="onNameChange()" />
+    </div>
+    
+    <div class="card flex justify-center" (click)="toggleCart()">
+        <p-button label="ჩემი კალათა / შეკვეთები ( 3 ?)" />
+    </div>
+    
+    
+    <app-customer-book-list [cartOrders] = "cartOrders"></app-customer-book-list>
+    
+    @if (cart) {
+        <div class="cart">
+            <app-cart-page  (cartToggled)="toggleCart()" [cartOrders] = "cartOrders"></app-cart-page>
+        </div>
+    }
 </div>
-
-<div class="card flex justify-center">
-    <p-button label="ჩემი კალათა / შეკვეთები ( 3 ?)" />
-</div>
-
-
-<app-customer-book-list [curtomerName] = "customerName"></app-customer-book-list>
 

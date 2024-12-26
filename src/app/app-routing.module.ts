@@ -7,7 +7,6 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
 const routes: Routes = [
   {path:"manager" , component:ManagerPageComponent},
   {path:"customer" , component:CustomerPageComponent},
-  {path:"cart" , component:CartPageComponent},
 
 ];
 

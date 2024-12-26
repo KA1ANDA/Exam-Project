@@ -1,7 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Book } from '../../models/book';
 import { BooksService } from '../../services/books.service';
+import { OrdersService } from '../../services/orders.service';
+import { Order } from '../../models/order';
+import { OrderDetail } from '../../models/orderDetail';
 
 @Component({
   selector: 'app-manager-page',
@@ -10,10 +13,21 @@ import { BooksService } from '../../services/books.service';
   templateUrl: './manager-page.component.html',
   styleUrl: './manager-page.component.css'
 })
-export class ManagerPageComponent {
+export class ManagerPageComponent implements OnInit {
   visible: boolean = false;
+  orders : Order[] = []
+  orderDetails: OrderDetail[] = [];
+  books: Book[] = []; 
 
-  constructor(public fb:FormBuilder , public bookService:BooksService){}
+  openDropdownId: number | null = null; 
+
+  constructor(public fb:FormBuilder , public bookService:BooksService , public orderService:OrdersService){}
+
+
+  ngOnInit(): void {
+    this.getOrders()
+    this.getBooks()
+  }
 
   formControl = this.fb.group({
     name: ["", Validators.required],
@@ -22,6 +36,52 @@ export class ManagerPageComponent {
     quantity: [1, Validators.required],
   });
 
+
+
+
+  toggleDropdown(orderId?: number | null): void {
+    if(orderId){
+      this.openDropdownId = this.openDropdownId === orderId ? null : orderId;
+    }
+
+    this.getOrderDetails(orderId)
+   
+  }
+
+
+  getBooks(): void {
+    this.bookService.getBooks().subscribe((res) => {
+      this.books = res;
+    });
+  }
+
+  getOrders():void{
+    this.orderService.getOrders().subscribe(res => {
+      this.orders = res
+    })
+  }
+
+  getOrderDetails(orderId?: number | null): void {
+    const order: Order = new Order();
+    order.id = orderId;
+  
+    this.orderService.getOrderDetails(order).subscribe((res: OrderDetail[]) => {
+      this.orderDetails = [];
+  
+      res.forEach((detail: OrderDetail) => {
+        
+        const matchedBook = this.books.find((book) => book.id === detail.bookId);
+        
+        this.orderDetails.push({
+          ...detail,
+          name: matchedBook?.name || 'Unknown', 
+          author: matchedBook?.author || 'Unknown', 
+        });
+      });
+  
+      console.log(this.orderDetails);
+    });
+  }
 
   showDialog():void {
       this.visible = true;

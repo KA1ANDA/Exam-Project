@@ -1,0 +1,11 @@
+.header{
+    padding: 0 244px;
+    display: flex;
+    justify-content: space-between;
+    color: rgb(183, 212, 255);
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 63px;
+    margin-top: 50px;
+    margin-bottom: 21px;
+}

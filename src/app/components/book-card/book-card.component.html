@@ -1,0 +1,32 @@
+@if (book) {
+    <div class="mb-4 p-8">
+        <p-card header="">
+            <img src="../../../assets/images/image.png"/>
+            <div>      
+                <div>დასახელება :{{book.name}}</div>
+                <div>ავტორი:{{book.author}}</div>
+                <div>რაოდენობა:{{book.quantity}}</div>
+                <div>ფასი:{{book.price}}</div>
+                <div>
+                    <p-button label="-" (click)="decrease()" />
+                    <input
+                      pInputText
+                      id="quantity"
+                      class="flex-auto"
+                      autocomplete="off"
+                      [(ngModel)]="bookCount"
+                      readonly
+                    />
+                    <p-button label="+" [disabled]="bookCount===book.quantity" (click)="increase()" />
+                </div>
+            </div>
+
+            @if (bookCount > 0) {
+                <div (click)="addToCart(book)" class="card flex justify-center">
+                    <p-button label="add to cart" />
+                </div>
+            }
+        </p-card>
+    </div>
+}
+

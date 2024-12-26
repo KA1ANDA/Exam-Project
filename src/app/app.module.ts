@@ -8,6 +8,9 @@ import { ApplicationConfig } from '@angular/core';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+
+
+
 import { ManagerPageComponent } from './pages/manager-page/manager-page.component';
 import { TableModule } from 'primeng/table';
 import { BookListComponent } from './components/book-list/book-list.component';
@@ -21,6 +24,9 @@ import { CustomerBookListComponent } from './components/customer-book-list/custo
 import { Card } from 'primeng/card';
 import { CustomerPageComponent } from './pages/customer-page/customer-page.component';
 import { CartPageComponent } from './pages/cart-page/cart-page.component';
+import { BookCardComponent } from './components/book-card/book-card.component';
+import { PanelMenu } from 'primeng/panelmenu';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +36,9 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
     DialogPopUpComponent,
     CustomerBookListComponent,
     CustomerPageComponent,
-    CartPageComponent
+    CartPageComponent,
+    BookCardComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -42,16 +50,19 @@ import { CartPageComponent } from './pages/cart-page/cart-page.component';
     ButtonModule,
     ReactiveFormsModule,
     Card,
+    PanelMenu
   ],
   providers: [
     provideAnimationsAsync(),
     provideHttpClient(withFetch()),
     providePrimeNG({
         theme: {
-            preset: Aura,
+            preset: Aura  ,
             options: {
-              darkModeSelector: false || 'none'
-          }
+              darkModeSelector: false || 'none',
+              
+          },
+          
         }
     })
   ],

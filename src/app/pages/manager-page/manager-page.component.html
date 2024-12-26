@@ -1,7 +1,8 @@
+<app-header></app-header>
 <app-book-list></app-book-list>
 
-<div class="card flex justify-center">
-    <p-button (click)="showDialog()" label="+ წიგნის დამატება" />
+<div class="add-book-btn">
+    <p-button class="button" severity="info" (click)="showDialog()" label="+ წიგნის დამატება" />
     <app-dialog-pop-up
     [visible]="visible"
     [formGroup]="formControl"
@@ -10,3 +11,89 @@
     (onDecrease)="decreaseQuantity()">
     ></app-dialog-pop-up>
 </div>
+
+
+
+<div class="orders-title">
+    <div><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 48 48"><rect width="48" height="48" fill="none"/><g fill="none" stroke="#fff" stroke-width="4"><path stroke-linecap="round" stroke-linejoin="round" d="M24 21v23c-3.291-4-13.371-4-18-4V18c9.874 0 16.114 2 18 3m0 0v23c3.291-4 13.371-4 18-4V18c-9.874 0-16.114 2-18 3"/><circle cx="24" cy="12" r="8"/></g></svg></div>
+    <div>შეკვეთები:</div>
+</div>
+
+
+@if (orders) {
+    <div class="orders-wrap">
+        @for (order of orders; track order.id) {
+            <div (click)="toggleDropdown(order.id)" class="order">
+                <div>{{order.userName}}(? წიგნი)</div>
+                <i *ngIf="openDropdownId !== order.id" class="pi pi-angle-down"></i>
+                <i *ngIf="openDropdownId === order.id" class="pi pi-angle-up"></i>
+               
+            </div>
+            
+            @if (openDropdownId === order.id) {
+                <p-table [value]="orderDetails">
+                    <ng-template #header>
+                        <tr>
+                            <th pSortableColumn="name" style="width:25%">
+                                დასახელება <p-sortIcon field="name" />
+                            </th>
+                            <th pSortableColumn="quantity" style="width:25%">
+                                რაოდენობა <p-sortIcon field="quantity" />
+                            </th>
+                            <th pSortableColumn="author" style="width:25%">
+                                ავტორი <p-sortIcon field="author" />
+                            </th>
+                            <th pSortableColumn="totalPrice" style="width:25%">
+                                ფასი <p-sortIcon field="totalPrice" />
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <p-columnFilter
+                                    type="text"
+                                    field="name"
+                                    placeholder="Search by name"
+                                    ariaLabel="Filter Name"
+                                ></p-columnFilter>
+                            </th>
+                            <th>
+                                <p-columnFilter
+                                    type="text"
+                                    field="quantity"
+                                    placeholder="Search by quantity"
+                                    ariaLabel="Filter Quantity"
+                                ></p-columnFilter>
+                            </th>
+                            <th>
+                                <p-columnFilter
+                                    type="text"
+                                    field="author"
+                                    placeholder="Search by author"
+                                    ariaLabel="Filter Author"
+                                ></p-columnFilter>
+                            </th>
+                            <th>
+                                <p-columnFilter
+                                    type="text"
+                                    field="totalPrice"
+                                    placeholder="Search by totalPrice"
+                                    ariaLabel="Filter totalPrice"
+                                ></p-columnFilter>
+                            </th>
+                        </tr>
+                    </ng-template>
+                    <ng-template #body let-orderDetail>
+                        <tr>
+                            <td>{{ orderDetail.name }}</td>
+                            <td>{{ orderDetail.quantity }}</td>
+                            <td>{{ orderDetail.author }}</td>
+                            <td>{{ orderDetail.totalPrice }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+              }
+        }
+    </div>
+    
+
+}
